@@ -29,21 +29,6 @@
 
 # MapReduce
 
-- mapper.py
-1) for line in sys.stdin: # 내가 불러오는 파일의 한줄한줄을 line이라는 변수에 저장. (stdin >> 불러오는 파일 전체) ->splitting 과정
-
-2) word, value = line.split('\t') 
-   news,  1
-
-- 터미널
-    - cat text.txt | python3 mapper.py | sort | python3 reducer.py >> happy1 hello2 news1
-                        쪼개고            정렬       갯수 세기
-
-
-
-- reducer.py
-
-
 ## 0.wordcount
 
 - 데이터 어디서 , 어디서 저장 ,mapper 어디 ,reducer 어디
@@ -53,9 +38,42 @@ hadoop jar ~/hadoop-3.3.6/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar -inp
 
 - chmod + >> 실행권한 부여
 
+- mapper.py
+
+1) for line in sys.stdin: # 내가 불러오는 파일의 한줄한줄을 line이라는 변수에 저장. (stdin >> 불러오는 파일 전체) ->splitting
+
+2) line = line.strip() #좌우 띄어쓰기 없애기
+
+3) words = line.split() # 줄별로 쪼개고
+
+4) for word in words: # 단어로 쪼개
+
+5) print(f'{word}\t1') # 간격을 두세요
+
+- reducer.py
+
+1) for line in sys.stdin: # 내가 불러오는 파일의 한줄한줄을 line이라는 변수에 저장. (stdin >> 불러오는 파일 전체) ->splitting 과정
+
+2) word, value = line.split('\t') 
+   news,  1
+
+3)  if last_word == word:
+        total_count += value # 같은 단어면 value(1) 값 추가할거얌
+
+4) else:
+        if last_word is not None: # 연속되는 상황, 계속되서 출력
+
+5) last_word = word #(last_word를 현재 word로)
+   total_count = value # (초기화)
+
+- 터미널
+    - cat text.txt | python3 mapper.py | sort | python3 reducer.py >> happy1 hello2 news1
+                        쪼개고            정렬       갯수 세기
+
+
+---------
+
 ## 1. movie-rate-avg
-
-
 
 
 ```shell
