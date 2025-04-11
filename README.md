@@ -1,16 +1,30 @@
 
 # hadoop command
+
+- hive서버 실행 -> hadoop 필요
+- cd hadoop-3.3.6/ >> 하둡 폴더로 이동
+- ubuntu@1-16:~/hadoop-3.3.6$ : sbin/start-all.sh >> 하둡 실행(백그라운드에서 실행) -> 하둡 종료: sbin/stop-all.sh
+
+- cd ../hive -로 이동(matadata store 생성을 실행하면 내가 있는 위치에 matastore db 생성)
+
+- hiveserver2 --hiveconf hive.server2.thrift.port=10000 --hiveconf hive.root.logger=DEBUG,console(hive 서버 실행 (metastore_db 있는 폴더에서)) >> 테이블 구조 저장 가능
+-------
+
+- input > book > books, ratings,users (파일)
+-------
+
 - ls 
     - hdfs dfs -ls / 
     - hdfs dfs -ls<내가 확인하고 싶은 경로> 
 
-- mkdir
+- mkdir [폴더 만들고]
     - 생성하고 싶은 폴더 만드는 명령어
     - hdfs dfs -mkdir /input
     - hdfs dfs -mkdir <생성하고 싶은 폴더 이름>
 
-- put
-    - hdfs dfs -put <업로드할 파일경로> <업로드할 위치>
+- put[데이터 업로드]
+    - hdfs dfs -put <업로드할 파일경로> <업로드할 위치(hdfs의 경로)> 파일 구조 다 적기(어느 위치에 있는지)
+                                    하둡 경로라 자동완성 x
 
 - cat
     - hdfs dfs -cat <출력하고싶은 파일 경로> 
@@ -25,7 +39,10 @@
 
 - | >> 왼쪽의 실행 결과를 오른쪽에 넘겨주세요
 
-------------
+- wget <다운로드 주소>
+
+- bashrc. 수정하면 >> source ~/.bashrc(새로고침) 필수 (터미널 껐다가 켜도 됨)
+--------
 
 # MapReduce
 
@@ -128,3 +145,6 @@ for line in sys.stdin:
         total_count = value
 print(f'{last_hour}\t{total_count}')
 ```
+
+
+
